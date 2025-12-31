@@ -33,3 +33,18 @@ have a waveshare display which was going to make a game with but never got aroun
 first thing was to add a bunch of auto connect stuff for pipewire (see pdf for part of the story made under my limited instructions by chat-gpt)
 
 
+also had a go at making a final img for flashing pizero2 but no where to put it really
+
+
+pattern will be this
+
+- pizero2:
+ - runs supercollider
+ - runs a osc sender (to itself) which reads and writes over uart/usb to pico
+ - has pico and screen with buttons 
+
+will need a sc startup.scd which initiates midi and any bus collections. in development will create and add synthdefs, for real the synthdef compilation will be separate (?). midi set up here
+
+will need a service which communicates with pico
+will need a service to send osc messages
+
