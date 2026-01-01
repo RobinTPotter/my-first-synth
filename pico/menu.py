@@ -20,18 +20,31 @@ class Menu():
 
             ws.lcd.text(o, 20, y, fg)
 
+        ws.lcd.show()
+
     def up(self):
         self.selected -=1
         if self.selected < 0: self.selected = len(self.options) - 1
+        self.show()
 
     def down(self):
         self.selected +=1
         if self.selected > len(self.options)-1: self.selected = 0
+        self.show()
 
     def go(self):
         return self.selected
 
 
+menu = Menu(["test", "hello", "gogo"])
+choice = None
 
+wbile True:
+    utime.sleep(0.1)
+    if ws.up.value()==0: menu.up()
+    elif ws.down.value()==0: menu.down()
+    elif ws.ctrl.value()==0:
+        choice = menu.go()
+        break
 
-
+print(f"you chose {choice}")
