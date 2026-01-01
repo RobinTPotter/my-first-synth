@@ -48,3 +48,32 @@ will need a sc startup.scd which initiates midi and any bus collections. in deve
 will need a service which communicates with pico
 will need a service to send osc messages
 
+
+
+
+
+## misc.
+
+where the synthdefs are written to: `.local/share/SuperCollider/synthdefs/`
+startup file: `.config/SuperCollider/startup.scd`
+
+
+## image related
+
+/boot/ssh - empty
+sudo nmcli device wifi hotspot ssid <example-network-name> password <example-password>
+
+
+
+/boot/wpa_supplicant.conf needs to look like
+```
+country=GB
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+        ssid="your WiFi SSID goes here"
+        psk="your WiFi password goes here"
+}
+```
+
+
