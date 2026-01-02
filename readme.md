@@ -85,3 +85,10 @@ fine for menus etc.
 
 https://thepihut.com/blogs/raspberry-pi-tutorials/coding-graphics-with-micropython-on-raspberry-pi-pico-displays
 
+
+created a menu class used the oversized fonts from the drivers tutorial above, will need to refactor the code somewhat. the driver code that is
+
+there a pins defined will needcto add p0.irq(lambda p:print(p)) or similar to make the loop better and readable
+
+
+

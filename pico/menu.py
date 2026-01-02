@@ -4,7 +4,8 @@ from ws import lcd, colour
 import FONTS as f
 
 ofs = 10
-sy = 16
+sy = 18
+sz = 3
 bg = ws.colour(0,0,50)
 hl = ws.colour(255,255,100)
 fg = ws.colour(150,150,250)
@@ -20,9 +21,9 @@ class Menu():
             y = sy*i + ofs
             if i==self.selected:
                 #ws.lcd.text("*", 5, y, hl)
-                f.prnt_st("*", 5, y, 2, 200, 200, 0) #asci,xx,yy,sz,r,g,b)
+                f.prnt_st("*", 5, y, sz, 200, 200, 0) #asci,xx,yy,sz,r,g,b)
             # ws.lcd.text(o, 20, y, fg)
-            f.prnt_st(o, 20, y, 2, 200,200,250)
+            f.prnt_st(o, 20, y, sz, 200,200,250)
 
         ws.lcd.show()
 
