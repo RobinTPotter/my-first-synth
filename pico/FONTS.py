@@ -1,6 +1,8 @@
 # ===========Start of FONTS Section=========================
 # Standard ASCII 5x8 font
 # https://gist.github.com/tdicola/229b3eeddc12d58fb0bc724a9062aa05
+from ws import colour, lcd
+
 FONT_HEIGHT = 8
 FONT_WIDTH = 5
 FONT = bytes([

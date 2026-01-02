@@ -1,6 +1,6 @@
 import ws
 import utime
-from ws import lcd
+from ws import lcd, colour
 import FONTS as f
 
 ofs = 10
@@ -22,7 +22,7 @@ class Menu():
                 #ws.lcd.text("*", 5, y, hl)
                 f.prnt_st("*", 5, y, 2, 200, 200, 0) #asci,xx,yy,sz,r,g,b)
             # ws.lcd.text(o, 20, y, fg)
-            f.prnt_st(o, 20, y, 200,200,250)
+            f.prnt_st(o, 20, y, 2, 200,200,250)
 
         ws.lcd.show()
 
