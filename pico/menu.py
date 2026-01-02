@@ -1,6 +1,7 @@
 import ws
 import utime
 
+ofs = 10
 sy = 10
 bg = ws.colour(0,0,50)
 hl = ws.colour(255,255,100)
@@ -13,9 +14,9 @@ class Menu():
 
     def show(self):
         ws.clear(bg)
-        for o,i in enumerate(options):
+        for i,o in enumerate(self.options):
             y = sy*i + ofs
-            if i==selected:
+            if i==self.selected:
                 ws.lcd.text("*", 5, y, hl)
 
             ws.lcd.text(o, 20, y, fg)
@@ -37,14 +38,21 @@ class Menu():
 
 
 menu = Menu(["test", "hello", "gogo"])
+menu.show()
 choice = None
 
-wbile True:
+while True:
     utime.sleep(0.1)
-    if ws.up.value()==0: menu.up()
-    elif ws.down.value()==0: menu.down()
+    if ws.up.value()==0:
+        menu.up()
+    elif ws.down.value()==0:
+        menu.down()
     elif ws.ctrl.value()==0:
         choice = menu.go()
         break
 
-print(f"you chose {choice}")
+
+print("you chose " + str(choice))
+
+import sys
+sys.exit()
