@@ -1,19 +1,25 @@
+
 import ws
 import utime
 from ws import lcd, colour
 import FONTS as f
 
+menu = None
+last = None
+
+db = 0.3
 ofs = 10
-sy = 18
+sy = 20
 sz = 3
 bg = ws.colour(0,0,50)
 hl = ws.colour(255,255,100)
 fg = ws.colour(150,150,250)
 
 class Menu():
-    def __init__(self, options):
+    def __init__(self, options, callback=None):
         self.options = options
         self.selected = 0
+        self.callback = callback
 
     def show(self):
         ws.clear(bg)
@@ -31,32 +37,56 @@ class Menu():
         self.selected -=1
         if self.selected < 0: self.selected = len(self.options) - 1
         self.show()
+        utime.sleep(db)
+
+    def left(self):
+        if self.callback: self.callback((None,None))
+        utime.sleep(db)
 
     def down(self):
         self.selected +=1
         if self.selected > len(self.options)-1: self.selected = 0
         self.show()
+        utime.sleep(db)
 
     def go(self):
+        if self.callback: self.callback((self.selected, self.options[self.selected]))
+        utime.sleep(db)
         return self.selected
 
+def hello(data):
+    i, o = data
+    print(data)
+    if o==None:
+        global menu, last
+        menu = last
+        menu.show()
+    elif o=="test":
+        ws.clear(ws.colour(250,250,80))
+        ws.lcd.show()
+        utime.sleep(1)
+    elif o=="hello":
+        global menu, last
+        last = menu
+        menu = kill_sauce_menu
+        menu.show()
+    return
 
-menu = Menu(["test", "hello", "gogo"])
+kill_sauce_menu = Menu(["kill", "sauce"], callback=hello)
+main_menu = Menu(["test", "hello", "gogo"], callback=hello)
+menu = main_menu
 menu.show()
 choice = None
 
+from machine import Pin
+
+ws.up.irq(lambda p: menu.up(), trigger=Pin.IRQ_FALLING)
+ws.down.irq(lambda p: menu.down(), trigger=Pin.IRQ_FALLING)
+ws.left.irq(lambda p: menu.left(), trigger=Pin.IRQ_FALLING)
+ws.ctrl.irq(lambda p: menu.go(), trigger=Pin.IRQ_FALLING)
+
 while True:
-    utime.sleep(0.1)
-    if ws.up.value()==0:
-        menu.up()
-    elif ws.down.value()==0:
-        menu.down()
-    elif ws.ctrl.value()==0:
-        choice = menu.go()
-        break
+    utime.sleep(1)
+    print("tick")
 
 
-print("you chose " + str(choice))
-
-import sys
-sys.exit()
